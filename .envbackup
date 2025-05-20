@@ -1,0 +1,5 @@
+# Local server values
+PORT=5500
+HOST='localhost'
+NODE_ENV='development'
+DATABASE_URL='postgresql://mydbcse340:SulHktIPt9jgo86P0xXcUNqYSfkmbZGQ@dpg-d0hnhq49c44c739ms8u0-a.ohio-postgres.render.com/mydbcse340_6egm'
