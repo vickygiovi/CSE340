@@ -152,7 +152,23 @@ body {
   height: 80%;
 }
 
+.span-detail {
+  font-weight: 900;
+}
+
+.img-detail {
+  width: 100%;
+}
+
 @media screen and (min-width: 1000px) {
+
+  .grid-detail {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
 
   .gridInv {
     display: grid;

@@ -27,5 +27,26 @@ async function getInventoryByClassificationId(classification_id) {
     }
 }
 
+async function getInventoryItem(inventory_id) {
+    try {
+        // const data = await pool.query(
+        //     `SELECT * FROM public.inventory WHERE inv_id = $1`,
+        //     [inventory_id]
+        // )
 
-module.exports = { getClassifications, getInventoryByClassificationId };
+        const query = {
+            // give the query a unique name
+            name: 'get-inv-item',
+            text: 'SELECT * FROM public.inventory WHERE inv_id = $1',
+            values: [inventory_id],
+        }
+
+        const data = await pool.query(query)
+
+        return data.rows
+    } catch (error) {
+        console.error("getinventorydetail error " + error)
+    }
+}
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryItem };

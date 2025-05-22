@@ -68,7 +68,41 @@ Util.buildClassificationGrid = async function (data) {
 
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+Util.buildInventoryItem = async function (data) {
+    // let details = '<h2>'
+    // details += data[0].inv_year + ' ' + data[0].inv_make + ' ' + data[0].inv_model
+    // details += '</h2>'
 
+    let details = '<div class="grid-detail">'
+    details += '<img class="img-detail" src="' + data[0].inv_image + '">'
+    details += '<div>'
+    details += '<h2>'
+    details += data[0].inv_make + ' ' + data[0].inv_model + ' Details'
+    details += '</h2>'
+    details += '<span class="span-detail">'
+    details += 'Price: $' + new Intl.NumberFormat('en-US').format(data[0].inv_price)
+    details += '</span>'
+
+    details += '<p>'
+    details += '<span class="span-detail">Description: </span>'
+    details += data[0].inv_description
+    details += '</p>'
+
+    details += '<p>'
+    details += '<span class="span-detail">Color: </span>'
+    details += data[0].inv_color
+    details += '</p>'
+
+    details += '<p>'
+    details += '<span class="span-detail">Miles: </span>'
+    details += new Intl.NumberFormat('en-US').format(data[0].inv_miles)
+    details += '</p>'
+
+    details += '</div>'
+    details += '</div>'
+
+    return details
+}
 
 
 
