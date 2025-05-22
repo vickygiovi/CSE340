@@ -74,7 +74,7 @@ Util.buildInventoryItem = async function (data) {
     // details += '</h2>'
 
     let details = '<div class="grid-detail">'
-    details += '<img class="img-detail" src="' + data[0].inv_image + '">'
+    details += '<img class="img-detail" alt="Vehicle image" src="' + data[0].inv_image + '">'
     details += '<div>'
     details += '<h2>'
     details += data[0].inv_make + ' ' + data[0].inv_model + ' Details'
