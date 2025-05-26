@@ -10,6 +10,24 @@
   padding: 0; */
 }
 
+input:required:invalid, input:focus:invalid {
+ /* insert your own styles for invalid form input */
+ background-color: rgb(255, 128, 128);
+}
+
+input:required:valid {
+ /* insert your own styles for valid form input */
+ background-color: rgb(128, 255, 128);
+}
+
+.pass_required {
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
 .gridInv {
     display: flex;
     flex-direction: column;
@@ -158,6 +176,43 @@ body {
 
 .img-detail {
   width: 100%;
+}
+
+.form-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: skyblue;
+  width: 50%;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.field-margin {
+  margin: 5px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.input {
+  width: 75%;
+  height: 30px;
+  border: 2px solid black;
+}
+
+.submit {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.notice {
+  color: red;
 }
 
 @media screen and (min-width: 1000px) {
