@@ -1,0 +1,47 @@
+<!-- <form action="post">
+  <label for="classification_name">Classification name</label>
+  <span class="pass_required"
+    >The classification name cannot contain a space or special character</span
+  >
+  <input
+    type="text"
+    id="classification_name"
+    ,
+    name="classification_name"
+    pattern="/^[a-zA-Z0-9]+$/"
+  />
+</form> -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } %> <%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<div class="form-container">
+  <form
+    class="form-flex padding-form"
+    action="/inv/addclassification"
+    method="post"
+  >
+    <label class="field-margin" for="classification_name"
+      >Classification name</label
+    >
+    <span class="pass_required"
+      >The classification name cannot contain a space or special character</span
+    >
+    <input
+      class="field-margin input"
+      type="text"
+      id="classification_name"
+      name="classification_name"
+      pattern="^[a-zA-Z0-9]+$"
+      required
+      value="<%= classification_name %>"
+    />
+    <input class="field-margin submit" type="submit" value="Add" />
+  </form>
+</div>

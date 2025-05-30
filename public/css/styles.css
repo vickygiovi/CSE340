@@ -20,6 +20,22 @@ input:required:valid {
  background-color: rgb(128, 255, 128);
 }
 
+select:required:invalid, input:focus:invalid {
+ /* insert your own styles for invalid form input */
+ background-color: rgb(255, 128, 128);
+}
+
+select:required:valid {
+ /* insert your own styles for valid form input */
+ background-color: rgb(128, 255, 128);
+}
+
+select {
+  height: 50px;
+  width: 75%;
+  font-size: 20px;
+}
+
 .pass_required {
   font-size: 20px;
   border: 2px solid black;
@@ -213,6 +229,10 @@ body {
 
 .notice {
   color: red;
+}
+
+.padding-form {
+  padding: 10px;
 }
 
 @media screen and (min-width: 1000px) {
