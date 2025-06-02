@@ -23,4 +23,14 @@ router.post("/addinventory",
     regValidateInventory.checkRegData,
     utilities.handleErrors(invController.postInventory));
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+// Route to load the Edit Inventory View
+router.get("/edit/:invid", utilities.handleErrors(invController.updateInv))
+
+router.post("/update",
+    regValidateInventory.registationRules(),
+    regValidateInventory.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory))
+
 module.exports = router;

@@ -10,6 +10,20 @@
   padding: 0; */
 }
 
+table, th, td {
+  border: 2px solid;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+table {
+  margin: 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 input:required:invalid, input:focus:invalid {
  /* insert your own styles for invalid form input */
  background-color: rgb(255, 128, 128);

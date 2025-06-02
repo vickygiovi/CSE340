@@ -18,6 +18,9 @@ const pool = require('./database/')
 const account = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 
+const cookieParser = require("cookie-parser")
+
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -25,6 +28,8 @@ const bodyParser = require("body-parser")
 /* ***********************
  * Middleware
  * ************************/
+
+app.use(cookieParser())
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
@@ -36,6 +41,9 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+app.use(utilities.checkJWTToken)
+
 
 // Express Messages Middleware
 
