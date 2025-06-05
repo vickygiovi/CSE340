@@ -48,9 +48,12 @@ router.post("/update",
 
 router.get("/delete/:invid",
     utilities.allowEmployeeOrAdmin,
-    (req, res) => {
-        res.send("delete")
-    }
+    utilities.handleErrors(invController.deleteInv)
+)
+
+router.post("/delete",
+    utilities.allowEmployeeOrAdmin,
+    utilities.handleErrors(invController.deleteInventory)
 )
 
 module.exports = router;
