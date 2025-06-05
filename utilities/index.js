@@ -153,7 +153,21 @@ Util.checkJWTToken = (req, res, next) => {
     }
 }
 
+Util.allowEmployeeOrAdmin = async (req, res, next) => {
+    const user = res.locals.accountData;
+    let nav = await Util.getNav()
 
+    if (!user || !["Employee", "Admin"].includes(user.account_type)) {
+        req.flash("notice", "Access denied. Only employees and managers.")
+        res.status(401).render("account/login", {
+            title: "Login",
+            nav,
+            errors: null,
+        })
+    }
+
+    next();
+}
 
 /* ****************************************
  *  Check Login

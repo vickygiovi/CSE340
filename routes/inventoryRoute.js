@@ -9,28 +9,48 @@ const regValidateInventory = require("../utilities/inventory-validation")
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:inventoryId", invController.buildInventoryItem);
-router.get("/", invController.buildManagement);
-router.get("/addclassification", invController.addClassification);
+router.get("/",
+    utilities.allowEmployeeOrAdmin,
+    invController.buildManagement);
+router.get("/addclassification",
+    utilities.allowEmployeeOrAdmin,
+    invController.addClassification);
 router.post("/addclassification",
+    utilities.allowEmployeeOrAdmin,
     regValidate.registationRules(),
     regValidate.checkRegData,
     utilities.handleErrors(invController.postClassification));
 
-router.get("/addinventory", invController.addInventory);
+router.get("/addinventory",
+    utilities.allowEmployeeOrAdmin,
+    invController.addInventory);
 
 router.post("/addinventory",
+    utilities.allowEmployeeOrAdmin,
     regValidateInventory.registationRules(),
     regValidateInventory.checkRegData,
     utilities.handleErrors(invController.postInventory));
 
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id",
+    utilities.allowEmployeeOrAdmin,
+    utilities.handleErrors(invController.getInventoryJSON))
 
 // Route to load the Edit Inventory View
-router.get("/edit/:invid", utilities.handleErrors(invController.updateInv))
+router.get("/edit/:invid",
+    utilities.allowEmployeeOrAdmin,
+    utilities.handleErrors(invController.updateInv))
 
 router.post("/update",
+    utilities.allowEmployeeOrAdmin,
     regValidateInventory.registationRules(),
     regValidateInventory.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
+
+router.get("/delete/:invid",
+    utilities.allowEmployeeOrAdmin,
+    (req, res) => {
+        res.send("delete")
+    }
+)
 
 module.exports = router;
