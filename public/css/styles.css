@@ -242,7 +242,9 @@ body {
 }
 
 .notice {
-  color: red;
+  color: white;
+  background-color: darkred;
+  padding: 10px;
 }
 
 .padding-form {
