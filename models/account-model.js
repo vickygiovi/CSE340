@@ -79,6 +79,21 @@ async function changePasswordAccount(account_id, hashedPassword) {
     }
 }
 
+async function returnAllAccounts() {
+    try {
+        const query = {
+            name: 'return-accounts',
+            text: 'SELECT * FROM account;',
+        }
+
+        const data = await pool.query(query)
+
+        return data.rows
+    } catch (error) {
+        console.error("view error " + error)
+    }
+}
 
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, changePasswordAccount };
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, changePasswordAccount, returnAllAccounts };

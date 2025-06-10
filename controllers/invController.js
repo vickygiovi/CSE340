@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const invAccounts = require("../models/account-model")
+const messageModel = require("../models/message-model")
 
 const invCont = {}
 
@@ -26,7 +28,25 @@ invCont.buildByClassificationId = async function (req, res, next) {
 
 invCont.buildInventoryItem = async function (req, res, next) {
     try {
+
+        const sender_id = res.locals.accountData.account_id
+        
         const inventory_id = req.params.inventoryId
+
+        const messages = await messageModel.viewMessages(sender_id, inventory_id)
+
+        const dataAccounts = await invAccounts.returnAllAccounts()
+
+        let templateAccounts = ""
+        templateAccounts += '<select class="submit-msg" name="recipient_id" id="recipient_id">'
+        
+        dataAccounts.forEach((data) => {
+            templateAccounts += `<option value="${data.account_id}">${data.account_firstname} ${data.account_lastname}</option>`
+        })
+
+        templateAccounts += '</select>'
+
+
         const data = await invModel.getInventoryItem(inventory_id)
         const grid = await utilities.buildInventoryItem(data)
         let nav = await utilities.getNav()
@@ -37,6 +57,10 @@ invCont.buildInventoryItem = async function (req, res, next) {
             title: model,
             nav,
             grid,
+            inventory_id,
+            selectAccount: templateAccounts,
+            msgs: { array: () => messages },
+            errors: { array: () => [] }
         })
     } catch (error) {
         next(error);
@@ -67,7 +91,8 @@ invCont.addClassification = async function (req, res, next) {
             title: "Add New Classification",
             nav,
             errors: null,
-            classification_name: null
+            classification_name: null,
+            
         })
     } catch (error) {
         next(error);
@@ -77,6 +102,8 @@ invCont.addClassification = async function (req, res, next) {
 invCont.postClassification = async function (req, res, next) {
     try {
         const { classification_name } = req.body
+
+        const classificationSelect = await utilities.buildClassificationList()
 
         const regResult = await invModel.addClassification(
             classification_name
@@ -93,14 +120,16 @@ invCont.postClassification = async function (req, res, next) {
             res.status(201).render("inventory/management", {
                 title: "Vehicle Management",
                 nav,
-                errors: null
+                errors: null,
+                classificationSelect
             })
         } else {
             req.flash("notice", "Sorry, the creation of the classification was failed.")
             res.status(501).render("inventory/management", {
                 title: "Vehicle Management",
                 nav,
-                errors: null
+                errors: null,
+                classificationSelect
 
             })
         }
@@ -159,6 +188,8 @@ invCont.postInventory = async function (req, res, next) {
             inv_color, classification_id
         )
 
+        const classificationSelect = await utilities.buildClassificationList()
+
         if (regResult) {
             req.flash(
                 "notice",
@@ -167,14 +198,16 @@ invCont.postInventory = async function (req, res, next) {
             res.status(201).render("inventory/management", {
                 title: "Vehicle Management",
                 nav,
-                errors: null
+                errors: null,
+                classificationSelect
             })
         } else {
             req.flash("notice", "Sorry, the creation of the inventory was failed.")
             res.status(501).render("inventory/management", {
                 title: "Vehicle Management",
                 nav,
-                errors: null
+                errors: null,
+                classificationSelect
 
             })
         }

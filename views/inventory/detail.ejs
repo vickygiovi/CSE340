@@ -1,3 +1,90 @@
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } else { res.redirect('/') } %> <%- grid %>
+<% } else { res.redirect('/') } %>
+
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+
+<%- grid %>
+
+<% if (accountData) { %>
+
+<h2>Messages</h2>
+
+<div class="messages">
+
+  <div id="div-messages">
+
+    <% msgs.array().forEach(msg => { %>
+      <p class="bodyMsg"><%= msg.body %></p>
+      <p class="senderMsg">Sender: <%= msg.firstnamesender %> <%= msg.lastnamesender %></p>
+      <p class="senderMsg">Recipient: <%= msg.firstnamerecipient %> <%= msg.lastnamerecipient %></p>
+
+    <% }) %>
+  </div>
+</div>
+
+<p>Message</p>
+
+<form method="POST" action="/message/send" id="sendMessage">
+  <textarea required class="msgWrite" placeholder="Write a message" name="body" id="body"></textarea>
+
+  <br>
+
+  <%- selectAccount %>
+
+  <br>
+
+  <input class="submit-msg" name="submit" type="submit" value="Send message">
+
+  <input type="hidden" name="inv_id"
+<% if(locals.inventory_id) { %> value="<%= locals.inventory_id %>"
+<% } %>>
+</form>
+
+<% } %>
+
+<script>
+
+  // Code to AJAX request
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   const form = document.getElementById("sendMessage");
+
+  //   form.addEventListener("submit", async (e) => {
+  //     e.preventDefault();
+
+  //     const data = {
+  //       body: form.elements["body"].value,
+  //       recipient_id: form.elements["recipient_id"].value, // según el campo <select>
+  //       inv_id: form.elements["inv_id"].value,
+  //     };
+
+  //     await fetch("/message/send", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     const accountId = <%# locals.accountData.account_id %>;
+
+  //     const response = await fetch("/message/view/" + accountId + "/" + data.inv_id).then(res => res.json())
+
+  //     const divMessages = document.querySelector("#div-messages")
+
+  //     let html = ""
+  //     response.forEach((msg) => {
+  //       html += `<p class="bodyMsg">${msg.body}</p>`
+  //       html += `<p class="senderMsg">Sender: ${msg.firstnamesender} ${msg.lastnamesender}</p>`
+  //       html += `<p class="senderMsg">Recipient: ${msg.firstnamerecipient} ${msg.lastnamerecipient}</p>`
+  //     })
+
+  //     divMessages.innerHTML = html
+
+  //   });
+  // });
+</script>
